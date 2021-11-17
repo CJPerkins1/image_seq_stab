@@ -30,6 +30,9 @@ while True:
 
     # So add 30 frames on the end, then don't write the first or last 30
     # and you should be good. 
+
+    # There's some error here where it's reading an empty image at the end,
+    # check to make sure it's stopping at the right place.
     stabilized_frame = stabilizer.stabilize_frame(input_frame=frame,
                                                   smoothing_window=30)
 

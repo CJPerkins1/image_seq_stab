@@ -27,9 +27,16 @@ def add_frames(image_names, image_num):
     # algorithm cutting off the last 30 frames (will delete the frames at the
     # end). 
 
-    # Getting the name of the last frame to copy it.
-    final_image_name = image_names[image_num - 1]
-    
+    # # Getting the name of the last frame that's not corrupted.
+    for loop_name in reversed(image_names):
+        print("Loop name is ", loop_name)
+        if check_image_quality(cv2.imread(loop_name)):
+            final_image_name = loop_name
+            print("Chosen image is ", final_image_name)
+            break
+        else:
+            continue
+
     # This will be a list of all the added fake frames, to be deleted at
     # the end
     fake_names = []
@@ -48,6 +55,7 @@ def add_frames(image_names, image_num):
         shutil.copy(final_image_name, fake_name)
 
     return fake_names
+
 
 ### Open images and stabilizer
 def open_images_and_stabilizer():
@@ -76,8 +84,9 @@ def open_images_and_stabilizer():
 # image stabilization. It returns TRUE if it's a good image and FALSE if it's
 # dark or missing. It's called inside the stabilization function.
 def check_image_quality(input_image):
+    # Could add a type check here for the corrupted ones, but seems to be 
+    # working as it is.
     average_pixel_value = np.average(input_image)
-    print("Average pixel value: ", average_pixel_value)
 
     # For the final version make a more sophisticated version of this
     if average_pixel_value > 50:

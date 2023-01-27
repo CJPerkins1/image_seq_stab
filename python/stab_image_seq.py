@@ -3,6 +3,12 @@
 # Image sequence stabilization
 # Using the python_video_stab library
 
+# To make Conda environment (includes some other stuff for other parts of the 
+# image processing workflow):
+# conda create -n process-microscope-images python=3.9 ffmpeg ffmpeg-python numpy pillow opencv
+# conda activate process-microscope-images
+# pip innstall vidstab
+
 ### Imports
 from vidstab.VidStab import VidStab
 import cv2

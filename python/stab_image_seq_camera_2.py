@@ -35,10 +35,10 @@ def add_frames(image_names, image_num):
 
     # # Getting the name of the last frame that's not corrupted.
     for loop_name in reversed(image_names):
-        print("Loop name is ", loop_name)
+        # print("Loop name is ", loop_name)
         if check_image_quality(cv2.imread(loop_name)):
             final_image_name = loop_name
-            print("Chosen image is ", final_image_name)
+            # print("Chosen image is ", final_image_name)
             break
         else:
             continue
@@ -156,8 +156,8 @@ def stabilize_and_write_images(stabilizer, image_seq, image_names, image_num):
         # the extra frame go?
         grabbed_frame, frame = image_seq.read()
 
-        print("Frame counter is ", counter)
-        print("Image counter for writing is ", image_counter)
+        # print("Frame counter is ", counter)
+        # print("Image counter for writing is ", image_counter)
         # print("Frame type is ", type(frame))
         # print("Frame shape is ", frame.shape)
 
@@ -171,7 +171,7 @@ def stabilize_and_write_images(stabilizer, image_seq, image_names, image_num):
         # frame = normalize_brightness(frame)
     
         if check_image_quality(frame):
-            print("running stabilizer")
+            # print("running stabilizer")
             # stabilized_frame will be an all black frame until iterationa 30 
             # Doing the actual stabilization
             stabilized_frame = stabilizer.stabilize_frame(input_frame = frame,
@@ -192,7 +192,7 @@ def stabilize_and_write_images(stabilizer, image_seq, image_names, image_num):
                 current_image_no_extension = current_image[:len(current_image)-4]
                 stabilized_name = current_image_no_extension + "_stab.tif"
     
-                print("Stabilized image is ", stabilized_name, '\n\n')
+                # print("Stabilized image is ", stabilized_name, '\n\n')
                 cv2.imwrite(stabilized_name, stabilized_frame)
 
                 image_counter += 1
@@ -202,7 +202,7 @@ def stabilize_and_write_images(stabilizer, image_seq, image_names, image_num):
                 current_image = image_names[image_counter]
                 current_image_no_extension = current_image[:len(current_image)-4]
                 stabilized_name = current_image_no_extension + "_stab.tif"
-                print("Skipping unstabilized image ", stabilized_name)
+                # print("Skipping unstabilized image ", stabilized_name)
 
                 # Skips the image that wasn't stabilized for naming
                 image_counter += 1
@@ -210,7 +210,7 @@ def stabilize_and_write_images(stabilizer, image_seq, image_names, image_num):
                 current_image_no_extension = current_image[:len(current_image)-4]
                 stabilized_name = current_image_no_extension + "_stab.tif"
 
-                print("Stabilized image is ", stabilized_name, '\n\n')
+                # print("Stabilized image is ", stabilized_name, '\n\n')
                 cv2.imwrite(stabilized_name, stabilized_frame)
 
                 image_counter += 1
@@ -236,7 +236,7 @@ def clean_normalized_dir():
 
     if os.path.exists(directory_path):
         shutil.rmtree(directory_path)
-        print(f"{directory_path} has been removed.")
+        # print(f"{directory_path} has been removed.")
     else:
         print(f"Error: {directory_path} does not exist.")
 

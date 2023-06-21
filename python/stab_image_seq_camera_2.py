@@ -129,7 +129,11 @@ def normalize_brightness():
     # Normalizing the images
     for filename in sorted(glob.glob('*.tif')):
         img = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
-        img = cv2.convertScaleAbs(img, alpha = brightness_level/cv2.mean(img)[0])
+
+        # Skips images that are black or mostly dark
+        if check_image_quality(img):
+            img = cv2.convertScaleAbs(img, alpha = brightness_level/cv2.mean(img)[0])
+
         cv2.imwrite(os.path.join("normalized_images", filename.split(".")[0] + ".tif"), img)
 
     #image_prefix = sorted(glob.glob('*.tif'))[0][:-8]
